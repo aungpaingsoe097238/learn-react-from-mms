@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState , memo } from 'react'
 
 const Counter = () => {
 
@@ -17,4 +17,4 @@ const Counter = () => {
   )
 }
 
-export default Counter
+export default memo(Counter)
