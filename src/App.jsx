@@ -2,6 +2,7 @@ import './App.css';
 import ConOne from './components/ConOne';
 import Counter from './components/Counter';
 import Input from './components/Input';
+import ConEffect from './components/Effect/ConEffect';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Input/>
       <br />
       <ConOne/>
+      <br />
+      <ConEffect/>
     </div>
   );
 }
