@@ -6,7 +6,7 @@ import NavBar from "./NavBar";
 
 function App() {
   return (
-    <div className="container mx-auto">
+    <div className=" container mx-auto">
       <NavBar/>
       <Routes>
         <Route path="/" element={<Meals />} />

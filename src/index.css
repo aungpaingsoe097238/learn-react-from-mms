@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.badge {
+    @apply bg-blue-400 inline-block p-1 rounded-xl text-white my-2 text-sm
+}
