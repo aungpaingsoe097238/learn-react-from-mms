@@ -7,11 +7,9 @@ import StateContextProvider from "./context/StateContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <React.StrictMode>
-      <BrowserRouter>
         <StateContextProvider>
           <App />
         </StateContextProvider>
-      </BrowserRouter>
     </React.StrictMode>
   </>
 );
