@@ -1,0 +1,28 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "aung",
+      "email": "aung@gmail.com",
+      "phone": "546546464"
+    },
+    {
+      "id": 2,
+      "name": "paing",
+      "email": "paing@gmail.com",
+      "phone": "545487887"
+    },
+    {
+      "name": "soeupdate",
+      "email": "soeupdate@gmail.com",
+      "phone": "987735356",
+      "id": 3
+    },
+    {
+      "name": "newupdate",
+      "email": "newupdate@gmail.com",
+      "phone": "6667979",
+      "id": 1672636173319
+    }
+  ]
+}
