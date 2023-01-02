@@ -1,15 +1,18 @@
-import React from 'react'
-import { useStateContext } from './context/StateContext'
-
+import React from "react";
+import { useStateContext } from "./context/StateContext";
 const One = () => {
-  const {name,count,inc,dec} = useStateContext()
+  const { state, dispatch } = useStateContext();
   return (
     <div>
-      <button onClick={inc} className="btn-primary">+</button>
-      { count }
-      <button onClick={dec} className="btn-primary">-</button>
+      <div className=" text-2xl ">{state}</div>
+      <button className="btn-primary" onClick={() => dispatch("inc")}>
+        Plus
+      </button>
+      <button className="btn-primary" onClick={() => dispatch("dec")}>
+        Mine
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default One
+export default One;

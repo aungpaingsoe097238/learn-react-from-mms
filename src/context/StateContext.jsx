@@ -1,13 +1,23 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 export const StateContext = createContext();
 
 const StateContextProvider = ({ children }) => {
-  const name = "mg mg";
-  const [count, setCount] = useState(0);
-  const inc = () => setCount((pre) => pre + 1);
-  const dec = () => setCount((pre) => pre - 1);
-  const data = { name, count, inc, dec };
+  const initialSate = 0;
+  const reducer = (state, action) => {
+    switch (action) {
+      case "inc":
+        return state + 1;
+      case "dec":
+        return state - 1;
+      case "reset":
+        return initialSate;
+      default:
+        return state;
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, initialSate)
+  const data = {state, dispatch}
   return <StateContext.Provider value={data}>{children}</StateContext.Provider>;
 };
 
