@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className=" container mx-auto">
-      <Routes>
-      </Routes>
+    <div className=" container mx-auto text-danger">
+      <div>Hello World</div>
     </div>
   );
 }
