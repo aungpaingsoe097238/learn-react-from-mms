@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import "../api.js"
+import "../api.js";
 import getData from "../api.js";
 
 const StateContext = createContext();
@@ -19,16 +19,16 @@ export const StateContextProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, inititalState);
 
-  const getProducts = async() => {
-    const data = await getData('products')
-    dispatch({type:'GET_PRODUCTS', payload: data})
-  }
+  const getProducts = async () => {
+    const data = await getData("products");
+    dispatch({ type: "GET_PRODUCTS", payload: data });
+  };
 
-  useEffect(()=>{
-    getProducts()
-  },[])
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-  const data = {state};
+  const data = { state };
   return <StateContext.Provider value={data}>{children}</StateContext.Provider>;
 };
 
