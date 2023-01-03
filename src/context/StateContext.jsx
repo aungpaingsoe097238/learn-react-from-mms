@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState
+} from "react";
 import "../api.js";
 import getData from "../api.js";
 
@@ -7,6 +13,9 @@ export const StateContextProvider = ({ children }) => {
   const inititalState = {
     productLists: []
   };
+
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -20,15 +29,17 @@ export const StateContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, inititalState);
 
   const getProducts = async () => {
+    setLoading(true);
     const data = await getData("products");
     dispatch({ type: "GET_PRODUCTS", payload: data });
+    data && setLoading(false)
   };
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  const data = { state };
+  const data = { state, loading, search, setSearch };
   return <StateContext.Provider value={data}>{children}</StateContext.Provider>;
 };
 

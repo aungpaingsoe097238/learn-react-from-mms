@@ -4,6 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 const Card = ({ product }) => {
   const { title, price, description, image, rating } = product;
   return (
+    
     <div className="w-80 border-2 p-5 rounded-lg shadow-sm hover:shadow-xl transition duration-700">
       <img src={product.image} className="h-[150px] mx-auto my-3" />
       <div className="text-header font-bold tracking-wider my-3">

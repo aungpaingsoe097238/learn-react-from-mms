@@ -3,8 +3,7 @@ import Card from '../components/Card';
 import { useStateContext } from '../context/StateContext'
 
 const Products = () => {
-  const {state: { productLists }} = useStateContext();
-
+  const {state: { productLists } , loading} = useStateContext();
   return (
     <div className='flex gap-3 flex-wrap'>
       {
