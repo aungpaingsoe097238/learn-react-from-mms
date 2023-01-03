@@ -2,8 +2,16 @@ import React from "react";
 import { CiShop } from "react-icons/ci";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../context/StateContext";
 
 const NavBar = () => {
+
+  const { search, setSearch } = useStateContext();
+
+  const handleSearch = (e) => { 
+    setSearch(e.target.value)
+  }
+
   return (
     <nav className="flex justify-between items-center px-5 py-2 rounded-lg my-5 bg-primary shadow-md">
       <Link to='/'>
@@ -26,6 +34,7 @@ const NavBar = () => {
             type="text"
             placeholder="Search..."
             className="outline-none bg-transparent"
+            onChange={ handleSearch }
           />
         </div>
       </div>

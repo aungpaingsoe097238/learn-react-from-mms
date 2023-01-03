@@ -11,16 +11,17 @@ import getData from "../api.js";
 const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
   const inititalState = {
-    productLists: []
+    products: []
   };
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const [productLists, setProductLists] = useState([]);
+  
   const reducer = (state, action) => {
     switch (action.type) {
       case "GET_PRODUCTS":
-        return { ...state, productLists: action.payload };
+        return { ...state, products: action.payload };
       default:
         return state;
     }
@@ -31,13 +32,19 @@ export const StateContextProvider = ({ children }) => {
   const getProducts = async () => {
     setLoading(true);
     const data = await getData("products");
-    dispatch({ type: "GET_PRODUCTS", payload: data });
     data && setLoading(false)
+    setProductLists(data);
   };
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    dispatch({ type: "GET_PRODUCTS", payload: productLists });
+    const filterProducts = productLists.filter(pd => pd.title.toLowerCase().includes(search.toLocaleLowerCase()));
+    dispatch({ type: "GET_PRODUCTS", payload: filterProducts });
+  }, [productLists, search])
 
   const data = { state, loading, search, setSearch };
   return <StateContext.Provider value={data}>{children}</StateContext.Provider>;

@@ -7,7 +7,6 @@ import { useStateContext } from "./context/StateContext";
 
 function App() {
   const { loading } = useStateContext();
-  console.log(loading)
   return (
     <div className=" container mx-auto ">
       <NavBar />
