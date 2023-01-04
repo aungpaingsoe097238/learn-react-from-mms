@@ -25,20 +25,27 @@ export const StateContextProvider = ({ children }) => {
         return { ...state, products: action.payload };
       case "Add_TO_CART":
         const item = action.payload;
-        const isExisted = state.cart.find(c => c.id === item.id);
-        if(isExisted){
+        const isExisted = state.cart.find((c) => c.id === item.id);
+        if (isExisted) {
           return {
-            ...state, cart: [...state.cart]
-          }
+            ...state,
+            cart: [...state.cart],
+          };
         } else {
           return {
-            ...state, cart: [...state.cart, {...item}]
-          }
+            ...state,
+            cart: [...state.cart, { ...item }],
+          };
         }
       case "REMOVE_FROM_CART":
         return {
           ...state,
           cart: state.cart.filter((item) => item.id !== action.payload.id),
+        };
+      case "CART_EMPTY":
+        return {
+          ...state,
+          cart: (state.cart = []),
         };
       default:
         return state;
