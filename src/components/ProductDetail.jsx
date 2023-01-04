@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import "../api.js";
 import getData from "../api.js";
 import { AiFillStar } from "react-icons/ai";
+import { useStateContext } from "../context/StateContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
+  const { dispatch } = useStateContext();
 
   const getProductDetail = async () => {
     setProduct(await getData(`products/${id}`));
@@ -57,7 +59,14 @@ const ProductDetail = () => {
             ${product.price}
           </div>
           <div>
-            <button className="btn-primary">Add To Cart</button>
+            <button
+              className="btn-primary"
+              onClick={() =>
+                dispatch({ type: "Add_TO_CART", payload: product })
+              }
+            >
+              Add To Cart
+            </button>
             <Link to="/success">
               <button className="btn-secondary">Buy Now</button>
             </Link>

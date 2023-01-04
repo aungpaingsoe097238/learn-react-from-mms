@@ -24,10 +24,17 @@ export const StateContextProvider = ({ children }) => {
       case "GET_PRODUCTS":
         return { ...state, products: action.payload };
       case "Add_TO_CART":
-        return {
-          ...state,
-          cart: [...state.cart, { ...action.payload, qty: 1 }],
-        };
+        const item = action.payload;
+        const isExisted = state.cart.find(c => c.id === item.id);
+        if(isExisted){
+          return {
+            ...state, cart: [...state.cart]
+          }
+        } else {
+          return {
+            ...state, cart: [...state.cart, {...item}]
+          }
+        }
       case "REMOVE_FROM_CART":
         return {
           ...state,
