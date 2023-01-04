@@ -4,6 +4,7 @@ import Products from "./pages/Products";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
 import { useStateContext } from "./context/StateContext";
+import ProductDetail from "./components/ProductDetail";
 
 function App() {
   const { loading } = useStateContext();
@@ -15,6 +16,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<Products />}></Route>
+          <Route path="/detail/:id" element={<ProductDetail />}></Route>
         </Routes>
       )}
     </div>

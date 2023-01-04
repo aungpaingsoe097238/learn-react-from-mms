@@ -5,7 +5,7 @@ import { useStateContext } from '../context/StateContext'
 const Products = () => {
   const {state: { products }} = useStateContext();
   return (
-    <div className='flex gap-3 flex-wrap'>
+    <div className='flex gap-3 flex-wrap justify-center'>
       {
         products?.map(product => <Card key={product.id} product={product}></Card>)
       }
