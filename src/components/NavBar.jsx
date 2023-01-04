@@ -5,16 +5,19 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../context/StateContext";
 
 const NavBar = () => {
+  const {
+    search,
+    setSearch,
+    state: { cart },
+  } = useStateContext();
 
-  const { search, setSearch } = useStateContext();
-
-  const handleSearch = (e) => { 
-    setSearch(e.target.value)
-  }
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <nav className="flex justify-between items-center px-5 py-2 rounded-lg my-5 bg-primary shadow-md">
-      <Link to='/'>
+      <Link to="/">
         <div className="flex items-center gap-2">
           <CiShop className="text-4xl text-info" />
           <div className="uppercase text-xl tracking-wider font-semibold text-info">
@@ -24,17 +27,20 @@ const NavBar = () => {
       </Link>
 
       <div className="flex gap-3 items-center">
-        <div className="flex items-center gap-2 bg-secondary text-white px-4 py-2 rounded-3xl cursor-pointer">
-          <FaShoppingCart />
-          <small>10</small>
-        </div>
+        <Link to={"/cart"}>
+          <div className="flex items-center gap-2 bg-secondary text-white px-4 py-2 rounded-3xl cursor-pointer">
+            <FaShoppingCart />
+            <small>{cart.length}</small>
+          </div>
+        </Link>
+
         <div className="flex items-center gap-2 border-2 rounded-lg px-3 py-2">
           <FaSearch />
           <input
             type="text"
             placeholder="Search..."
             className="outline-none bg-transparent"
-            onChange={ handleSearch }
+            onChange={handleSearch}
           />
         </div>
       </div>

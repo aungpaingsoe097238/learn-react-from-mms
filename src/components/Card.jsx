@@ -1,9 +1,11 @@
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../context/StateContext";
 
-const Card = ({ product }) => {
-  const { title, price, description, image, rating } = product;
+const Card = ({ product}) => {
+  const { dispatch, state: {cart} } = useStateContext();
+  
   return (
     <div className="w-80 border-2 p-5 rounded-lg shadow-sm hover:shadow-xl transition duration-700">
       <img src={product.image} className="h-[150px] mx-auto my-3" />
@@ -18,7 +20,9 @@ const Card = ({ product }) => {
       </div>
       <div className="text-secondary text-xl my-3">${product.price}</div>
       <div className="flex">
-        <button className="btn-primary">Add To Card</button>
+        <button className="btn-primary" onClick={() => dispatch({ type: "Add_TO_CART", payload: product }) }>
+          Add To Card
+        </button>
         <Link to={`/detail/${product.id}`}>
           <button className="btn-secondary">Detail</button>
         </Link>

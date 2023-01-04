@@ -3,7 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
-  useState
+  useState,
 } from "react";
 import "../api.js";
 import getData from "../api.js";
@@ -11,17 +11,28 @@ import getData from "../api.js";
 const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
   const inititalState = {
-    products: []
+    products: [],
+    cart: [],
   };
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [productLists, setProductLists] = useState([]);
-  
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "GET_PRODUCTS":
         return { ...state, products: action.payload };
+      case "Add_TO_CART":
+        return {
+          ...state,
+          cart: [...state.cart, { ...action.payload, qty: 1 }],
+        };
+      case "REMOVE_FROM_CART":
+        return {
+          ...state,
+          cart: state.cart.filter((item) => item.id !== action.payload.id),
+        };
       default:
         return state;
     }
@@ -32,7 +43,7 @@ export const StateContextProvider = ({ children }) => {
   const getProducts = async () => {
     setLoading(true);
     const data = await getData("products");
-    data && setLoading(false)
+    data && setLoading(false);
     setProductLists(data);
   };
 
@@ -42,11 +53,13 @@ export const StateContextProvider = ({ children }) => {
 
   useEffect(() => {
     dispatch({ type: "GET_PRODUCTS", payload: productLists });
-    const filterProducts = productLists.filter(pd => pd.title.toLowerCase().includes(search.toLocaleLowerCase()));
+    const filterProducts = productLists.filter((pd) =>
+      pd.title.toLowerCase().includes(search.toLocaleLowerCase())
+    );
     dispatch({ type: "GET_PRODUCTS", payload: filterProducts });
-  }, [productLists, search])
+  }, [productLists, search]);
 
-  const data = { state, loading, search, setSearch };
+  const data = { state, loading, search, setSearch, dispatch };
   return <StateContext.Provider value={data}>{children}</StateContext.Provider>;
 };
 
