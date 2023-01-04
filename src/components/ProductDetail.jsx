@@ -14,13 +14,16 @@ const ProductDetail = () => {
   };
 
   const getProductByCat = async () => {
-    setProducts(await getData(`products/category/${product.category}`));
+    const data = await getData(`products/category/${product.category}`);
+    const filterData = data?.filter((item) => item.id !== product.id);
+
+    setProducts(filterData);
   };
 
   useEffect(() => {
     getProductDetail();
     getProductByCat();
-  }, []);
+  }, [product]);
 
   return (
     <div className="">
@@ -55,7 +58,9 @@ const ProductDetail = () => {
           </div>
           <div>
             <button className="btn-primary">Add To Cart</button>
-            <button className="btn-secondary">Buy Now</button>
+            <Link to="/success">
+              <button className="btn-secondary">Buy Now</button>
+            </Link>
           </div>
         </div>
       </div>
