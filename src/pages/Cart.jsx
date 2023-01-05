@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../context/StateContext";
-import { AiFillDelete } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import CartItem from "../components/CartItem";
 
 const Cart = () => {
   const {
     state: { cart },
-    dispatch
+    dispatch,
   } = useStateContext();
 
   const [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
+
+  const incresePrice = (price) => {
+    setTotal(prev => prev + price)
+  }
+
+  const decresePrice = (price) => {
+    setTotal(prev => prev - price)
+  }
 
   const checkOutHandler = () => {
     dispatch({ type: "CART_EMPTY" });
@@ -29,33 +37,7 @@ const Cart = () => {
           <div className="col-span-2">
             <div className="flex flex-col gap-3 ">
               {cart?.map((item) => (
-                <div key={item.id}>
-                  <div className="flex justify-between items-center border-3 shadow-lg rounded-lg py-3 px-3">
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={item?.image}
-                        className=" h-20 rounded-lg shadow-lg "
-                        alt=""
-                      />
-                      <div>
-                        <div className="text-info font-bold">{item?.title}</div>
-                        <div className="text-secondary text-sm">
-                          $({item?.price})
-                        </div>
-                        <div>{item?.qty}</div>
-                      </div>
-                    </div>
-
-                    <button
-                      className=" text-danger text-2xl "
-                      onClick={() =>
-                        dispatch({ type: "REMOVE_FROM_CART", payload: item })
-                      }
-                    >
-                      <AiFillDelete></AiFillDelete>
-                    </button>
-                  </div>
-                </div>
+                <CartItem item={item} key={item.id} incresePrice={incresePrice} decresePrice={decresePrice} />
               ))}
             </div>
           </div>
@@ -63,7 +45,7 @@ const Cart = () => {
           <div className="col-span-1">
             <div className="bg-gray-50 p-10 rounded-lg shadow-lg">
               <div className="text-info text-bold my-3">
-                Total Price - ${total}
+                Total Price - ${total.toFixed(2)}
               </div>
               <button className="btn-primary" onClick={checkOutHandler}>
                 Checkout

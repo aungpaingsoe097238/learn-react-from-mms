@@ -3,7 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
-  useState,
+  useState
 } from "react";
 import "../api.js";
 import getData from "../api.js";
@@ -12,7 +12,7 @@ const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
   const inititalState = {
     products: [],
-    cart: [],
+    cart: []
   };
 
   const [search, setSearch] = useState("");
@@ -34,18 +34,18 @@ export const StateContextProvider = ({ children }) => {
         } else {
           return {
             ...state,
-            cart: [...state.cart, { ...item }],
+            cart: [...state.cart, { ...item , qty: 1 }],
           };
         }
       case "REMOVE_FROM_CART":
         return {
           ...state,
-          cart: state.cart.filter((item) => item.id !== action.payload.id),
+          cart: state.cart.filter((item) => item.id !== action.payload.id)
         };
       case "CART_EMPTY":
         return {
           ...state,
-          cart: (state.cart = []),
+          cart: (state.cart = [])
         };
       default:
         return state;
