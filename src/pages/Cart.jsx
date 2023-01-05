@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useStateContext } from "../context/StateContext";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,8 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 const Cart = () => {
   const {
     state: { cart },
-    dispatch,
+    dispatch
   } = useStateContext();
+
+  const [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
 
@@ -15,6 +17,10 @@ const Cart = () => {
     dispatch({ type: "CART_EMPTY" });
     navigate("/");
   };
+
+  useEffect(() => {
+    setTotal(cart.reduce((a, c) => a + c.price, 0));
+  }, [cart]);
 
   return (
     <>
@@ -57,7 +63,7 @@ const Cart = () => {
           <div className="col-span-1">
             <div className="bg-gray-50 p-10 rounded-lg shadow-lg">
               <div className="text-info text-bold my-3">
-                Total Price - $1000
+                Total Price - ${total}
               </div>
               <button className="btn-primary" onClick={checkOutHandler}>
                 Checkout
